@@ -2,6 +2,7 @@ package br.edu.ifpb.padroes;
 
 import br.edu.ifpb.padroes.domain.Apartment;
 import br.edu.ifpb.padroes.domain.Bungalow;
+import br.edu.ifpb.padroes.domain.PropertiesSale;
 import br.edu.ifpb.padroes.domain.Tenement;
 import br.edu.ifpb.padroes.payment.PaymentService;
 
@@ -19,16 +20,20 @@ public class Main {
         bungalow.setPrice(150000);
 
         Tenement tenament = new Tenement();
-        bungalow.setAddress("Rua y");
-        bungalow.setBuilder("Cortiço construtura");
-        bungalow.setPrice(100000);
+        tenament.setAddress("Rua y");
+        tenament.setBuilder("Cortiço construtura");
+        tenament.setPrice(100000);
 
         PaymentService paymentService = new PaymentService();
 
-        // TODO - reduzir chamadas múltiplas para uma única chamada para o método pay() utilizando o padrão composite
-        paymentService.pay(apartment);
-        paymentService.pay(bungalow);
-        paymentService.pay(tenament);
+
+        PropertiesSale propertiesSale = new PropertiesSale();
+        propertiesSale.add(apartment);
+        propertiesSale.add(bungalow);
+        propertiesSale.add(tenament);
+
+        System.out.println(propertiesSale.getPrice());
+        paymentService.pay(propertiesSale);
 
 
     }
